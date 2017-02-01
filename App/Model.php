@@ -2,8 +2,7 @@
 
 namespace App;
 
-
-class Model
+abstract class Model
 {
     const TABLE = '';
 
@@ -13,5 +12,5 @@ class Model
         return $db->query('SELECT * FROM '.static::TABLE, static::class);
     }
     
-
+    abstract public function get_content();
 }
