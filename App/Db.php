@@ -3,26 +3,27 @@
 namespace App;
 
 class Db
+    extends Singletone
 {
     protected $dbh;
-    public function __construct()
+    protected function __construct()
     {
         $this->dbh = new \PDO('mysql:host=127.0.0.1;dbname=test', 'root', '');
     }
     
-    public function execute($sql)
+    public function execute($sql,  $param = [])
     {
         $sth = $this->dbh->prepare($sql);
-        $res = $sth->execute();
+        $res = $sth->execute($param);
         return $res; 
     }
     
-    public function query($sql, $class)
+    public function query($sql, $param = [], $class)
     {
         $sth = $this->dbh->prepare($sql);
-        $res = $sth->execute();
+        $res = $sth->execute($param);
         if(false !== $res){
-          $dat = $sth->fetchAll(\PDO::FETCH_CLASS, $class);
+            $dat = $sth->fetchAll(\PDO::FETCH_CLASS, $class);
             return $dat;
         }else{
             return [];

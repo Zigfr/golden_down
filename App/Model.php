@@ -8,9 +8,9 @@ abstract class Model
 
     public static function findAll()
     {
-        $db = new Db();
-        return $db->query('SELECT * FROM '.static::TABLE, static::class);
+        $db = Db::instance();
+        return $db->query('SELECT * FROM '.static::TABLE, [], static::class);
     }
     
-    abstract public function get_content();
+    abstract static function findByID(int $id);
 }
