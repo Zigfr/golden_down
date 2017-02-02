@@ -3,7 +3,7 @@
 namespace App;
 
 
-abstract class Singletone
+trait Singletone
 {
     protected static $instance;
     protected function __construct()

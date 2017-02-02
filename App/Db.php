@@ -3,9 +3,11 @@
 namespace App;
 
 class Db
-    extends Singletone
 {
+    use Singletone;
+
     protected $dbh;
+
     protected function __construct()
     {
         $this->dbh = new \PDO('mysql:host=127.0.0.1;dbname=test', 'root', '');
