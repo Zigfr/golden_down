@@ -38,6 +38,46 @@ abstract class Model
         $sql = 'INSERT INTO '. static::TABLE . ' (' . implode(',', $columns) .') VALUES '.
            ' (' . implode(',', array_keys($values)) .')';
         $db = Db::instance();
+        $res = $db->execute($sql, $values);
+        $this->id = $db->lastInsertId();
+        return $res;
+    }
+
+    public function update()
+    {
+        foreach($this as $k => $v)
+        {
+            if('id' == $k){
+                continue;
+            }
+            $columns[] = $k.'=:'.$k;
+        }
+        foreach($this as $k => $v)
+        {
+            $values[':'.$k] = $v;
+        }
+
+        $sql = 'UPDATE '. static::TABLE . ' SET '. implode(', ', $columns) .' WHERE id = :id';
+
+        $db = Db::instance();
+        $db->execute($sql, $values);
+    }
+
+    public function save()
+    {
+        if($this->isNew()){
+            $this->insert();
+        }else{
+            $this->update();
+        }
+    }
+    
+    public function delete()
+    {
+        $sql = 'DELETE FROM '. static::TABLE . ' WHERE id = :id';
+        $values[':id'] = $this->id;
+
+        $db = Db::instance();
         $db->execute($sql, $values);
     }
     abstract static function findByID(int $id);
