@@ -2,20 +2,22 @@
 
 namespace App\Models;
 
-use App\Magic;
+use App\Db;
 use App\Model;
 
 class Authors
     extends Model
 {
-    use Magic;
+
 
     const TABLE = 'authors';
 
     public $name;
 
-    static function findByID(int $id)
+    static function findByID($id)
     {
-
+        $db = Db::instance();
+        return $db->query('SELECT * FROM '.static::TABLE .' WHERE id =:id',
+            [':id' => $id], static::class);
     }
 }

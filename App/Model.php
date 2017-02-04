@@ -80,5 +80,5 @@ abstract class Model
         $db = Db::instance();
         $db->execute($sql, $values);
     }
-    abstract static function findByID(int $id);
+
 }
