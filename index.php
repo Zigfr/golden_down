@@ -1,10 +1,15 @@
 <?php
-require __DIR__ . '/autoload.php';
 
-$url = $_SERVER['REQUEST_URI'];
+    require __DIR__ . '/autoload.php';
 
-$controller = new \App\Controllers\News();
+    $url = $_SERVER['REQUEST_URI'];
 
-$action = $_GET['action'] ?: 'Index';
+    $controller = new \App\Controllers\News();
 
-$controller->action($action);
+    if(!empty($_GET['action'])){
+        $action = $_GET['action'];
+    }else{
+        $action = 'Index';
+    }
+
+    $controller->action($action);
