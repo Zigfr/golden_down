@@ -19,11 +19,12 @@
 <![endif]-->
 </head>
 <body>
-<h1> Пользователи </h1>
-    <?php foreach($users as $user): ?>
+<h1> Все новости </h1>
+    <?php foreach($news as $article): ?>
         <div class ="panel panel-default">
-            <div class ="panel-heading"> <?php echo $user->name; ?> </div>
-            <div class ="panel-body"> <?php echo $user->email; ?> </div>
+            <div class ="panel-heading"> <?php echo $article->title; ?> </div>
+            <div class ="panel-body"> <?php if(!empty($article->author)): ?>
+            Автор:<?php echo $article->author->name; ?> <?php endif; ?>  </div>
         </div>
     <?php endforeach; ?>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

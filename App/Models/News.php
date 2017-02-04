@@ -21,7 +21,7 @@ class News
 
     /**
      * LAZY LOAD
-     * 
+     *
      * @param $k
      * @return null
      */
@@ -35,4 +35,14 @@ class News
         }
 
     }
+
+    public function __isset($k)
+    {
+        switch ($k){
+            case 'author': return true;
+                break;
+            default: return [];
+        }
+    }
+
 }
