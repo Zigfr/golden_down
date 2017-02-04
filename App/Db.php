@@ -1,10 +1,12 @@
 <?php
 
+
 namespace App;
 
 class Db
 {
-    use Singletone;
+
+    use Singleton;
 
     protected $dbh;
 
@@ -12,28 +14,22 @@ class Db
     {
         $this->dbh = new \PDO('mysql:host=127.0.0.1;dbname=test', 'root', '');
     }
-    
-    public function execute($sql,  $param = [])
+
+    public function execute($sql, $params = [])
     {
         $sth = $this->dbh->prepare($sql);
-        $res = $sth->execute($param);
-        return $res; 
-    }
-    
-    public function query($sql, $param = [], $class)
-    {
-        $sth = $this->dbh->prepare($sql);
-        $res = $sth->execute($param);
-        if(false !== $res){
-            $dat = $sth->fetchAll(\PDO::FETCH_CLASS, $class);
-            return $dat;
-        }else{
-            return [];
-        }
+        $res = $sth->execute($params);
+        return $res;
     }
 
-    public function lastInsertId()
+    public function query($sql, $params, $class)
     {
-        return $this->dbh->lastInsertId();
+        $sth = $this->dbh->prepare($sql);
+        $res = $sth->execute($params);
+        if (false !== $res) {
+            return $sth->fetchAll(\PDO::FETCH_CLASS, $class);
+        }
+        return [];
     }
+
 }

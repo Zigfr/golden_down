@@ -3,20 +3,21 @@
 namespace App\Models;
 
 use App\Model;
+
 /**
- * Class Authors
+ * Class News
  * @package App\Models
  *
- * @property \App\Models\Authors $author
- *
+ * @property \App\Models\Author $author
  */
 class News
     extends Model
 {
+
     const TABLE = 'news';
 
     public $title;
-    public $lead; 
+    public $lead;
     public $author_id;
 
     /**
@@ -27,21 +28,23 @@ class News
      */
     public function __get($k)
     {
-        switch ($k){
-            case 'author': return
-                Authors::findByID($this->author_id);
+        switch ($k) {
+            case 'author':
+                return Author::findById($this->author_id);
                 break;
-            default: return null;
+            default:
+                return null;
         }
-
     }
 
     public function __isset($k)
     {
-        switch ($k){
-            case 'author': return true;
+        switch ($k) {
+            case 'author':
+                return !empty($this->author_id);
                 break;
-            default: return [];
+            default:
+                return false;
         }
     }
 

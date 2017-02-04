@@ -4,15 +4,21 @@ namespace App\Models;
 
 use App\Model;
 
+/**
+ * Class User
+ * @package App\Models
+ *
+ */
 class User extends Model
-     implements HasEmail
+    implements HasEmail
 {
     const TABLE = 'users';
+
     public $email;
     public $name;
 
     /**
-     * Метод возвращает адрес e-mail
+     * Метод, возвращающий адрес e-mail
      * @deprecated
      * @return string Адрес электронной почты
      */
@@ -21,17 +27,4 @@ class User extends Model
         return $this->email;
     }
 
-    public static function findByID(int $id)
-    {
-        $data = new \PDO('mysql:host=127.0.0.1;dbname=test', 'root', '');
-        $sql = 'SELECT * FROM '.static::TABLE .' WHERE id ='.$id;
-        $sth = $data->prepare($sql);
-        $res = $sth->execute();
-        if(false !== $res){
-            $notes = $sth->fetchAll(\PDO::FETCH_CLASS, static::class);
-            return $notes;
-        }else {
-            return false;
-        }
-    }
 }
