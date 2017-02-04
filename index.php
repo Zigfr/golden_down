@@ -1,6 +1,11 @@
 <?php
     require __DIR__ .'/autoload.php';
 
-    $users = \App\Models\User::findAll();
+$user = new \App\Models\User();
 
-    include __DIR__ .'/App/templates/index.php';
+    $view = new \App\View();
+
+    $view->users = \App\Models\User::findAll();
+   $view->title = 'My cool site';
+
+ echo $view->render(__DIR__ .'/App/templates/index.php');

@@ -4,12 +4,22 @@ namespace App\Models;
 
 use App\Model;
 
-class User
-    extends Model
+class User extends Model
+     implements HasEmail
 {
     const TABLE = 'users';
     public $email;
     public $name;
+
+    /**
+     * Метод возвращает адрес e-mail
+     * @deprecated
+     * @return string Адрес электронной почты
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
     public static function findByID(int $id)
     {
@@ -24,8 +34,4 @@ class User
             return false;
         }
     }
-    
-        
-    
-
 }
